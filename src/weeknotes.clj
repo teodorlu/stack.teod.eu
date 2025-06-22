@@ -1,8 +1,10 @@
 (ns weeknotes
   (:require [clojure.string :as str]))
 
-(str/split (-> archive first :text)
-           #"\n" 2)
+(comment
+  (str/split (-> archive first :text) #"\n" 2)
+
+  )
 
 (def archive
   [{:text "I DAG STARTER EN NY UKE!",
