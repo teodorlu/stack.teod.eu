@@ -38,7 +38,9 @@
               ;;TODO move to garden-email?
               (when garden-email/dev-mode?
                 [:section.container
-                 [:nav [:ul [:li [:a {:href garden-email/outbox-url} "sent emails"]]]]
+                 [:nav
+                  [:ul [:li [:em {:style {:font-variant "small-caps"}} "Dev header"]]]
+                  [:ul [:li [:a {:href garden-email/outbox-url} "sent emails"]]]]
                  [:hr]])
               (into [:main.container] contents)]))))
 
