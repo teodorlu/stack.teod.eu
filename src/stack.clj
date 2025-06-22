@@ -43,7 +43,8 @@
 (def ok-messages ["Got it!" "At your service!" "Rubber shoes in motion."
                   "Sir! Yes, SIR!" "Double time." "Stack ready." "Moving out."
                   "Airship ready!" "I've got the knowlege." "Release the swarm!"
-                  "It's gonna be a silent spring." "Scorched earth."])
+                  "It's gonna be a silent spring." "Scorched earth."
+                  "High speed, low drag." "Woof!"])
 
 (defn stack-push [{:as req :keys [params]}]
   (when (teodor? req)
