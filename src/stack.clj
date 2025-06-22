@@ -21,6 +21,9 @@
 (defn concatv [& args]
   (into [] cat args))
 
+(defn teodor? [req]
+  (= (username req) "teodorlu"))
+
 (defn index [req]
   (let [uname (username req)]
     (impulse/page
@@ -32,20 +35,22 @@
        [:li (if uname
               [:span (str uname " ") [:a {:href garden-id/logout-uri} "(logout)"]]
               [:a {:href garden-id/login-uri} "login"])]]]
-     (when uname (render-writer {}))
+     (when (teodor? req)
+       (render-writer {}))
      (map render-note (concatv (:stack @impulse/state) weeknotes/archive)))))
 
 (def ok-messages ["Got it!" "At your service!" "Rubber shoes in motion."
                   "Sir! Yes, SIR!" "Double time." "Stack ready."])
 
 (defn stack-push [{:as req :keys [params]}]
-  (when-let [text (get params "writer")]
-    (impulse/swap-in! impulse/state
-                      [:stack]
-                      (fnil conj [])
-                      {:text text
-                       :timestamp (str (java.time.Instant/now))
-                       :uuid (random-uuid)}))
+  (when (teodor? req)
+    (when-let [text (get params "writer")]
+      (impulse/swap-in! impulse/state
+                        [:stack]
+                        (fnil conj [])
+                        {:text text
+                         :timestamp (str (java.time.Instant/now))
+                         :uuid (random-uuid)})))
   (render-writer {:message (rand-nth ok-messages)}))
 
 (def routes
