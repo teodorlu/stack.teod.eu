@@ -93,10 +93,16 @@
     [:div ;; {:style {:margin-top "2rem"}}
      [:p [:strong header]]
      [:p {:style {:padding-left "1rem"}}
-      (some->> body
-               str/trim
-               str/split-lines
-               (interpose [:br]))]]))
+      (some->> body str/trim str/split-lines (interpose [:br]))]]))
+
+(defn render-writer [{:keys [message]}]
+  [:form {:hx-post "/push" :hx-swap "outerHTML"}
+   message
+   [:textarea {:name "writer" :rows 10}]
+   [:button {:type "submit"} "Save"]])
+
+(defn concatv [& args]
+  (into [] cat args))
 
 (defn index [req]
   (let [uname (username req)]
@@ -109,10 +115,8 @@
        [:li (if uname
               [:span (str uname " ") [:a {:href garden-id/logout-uri} "(logout)"]]
               [:a {:href garden-id/login-uri} "login"])]]]
-     (if uname
-       "Logged in - TODO author stuff"
-       (list [:strong "Anonymous"]
-             (map render-note weeknotes/archive))))))
+     (when uname (render-writer {}))
+     (map render-note (concatv (:stack @impulse/state) weeknotes/archive)))))
 
 (defn book-appointment [{:as req :keys [params]}]
   (let [{:strs [day hour]} params]
@@ -139,8 +143,22 @@
                                      (fnil offset-week (start-of-week (now)))
                                      offset)))
 
+(def ok-messages ["Got it!" "At your service!" "Rubber shoes in motion."
+                  "Sir! Yes, SIR!" "Double time." "Stack ready."])
+
+(defn stack-push [{:as req :keys [params]}]
+  (when-let [text (get params "writer")]
+    (impulse/swap-in! impulse/state
+                      [:stack]
+                      (fnil conj [])
+                      {:text text
+                       :timestamp (str (java.time.Instant/now))
+                       :uuid (random-uuid)}))
+  (render-writer {:message (rand-nth ok-messages)}))
+
 (def routes
   [["/" #'index]
+   ["/push" {:post #'stack-push}]
    ["/book-appointment" {:post #'book-appointment}]
    ["/unbook-appointment" {:post #'unbook-appointment}]
    ["/next" {:post (partial update-week 1)}]
