@@ -39,8 +39,11 @@
        (render-writer {}))
      (map render-note (concatv (:stack @impulse/state) weeknotes/archive)))))
 
+;; https://www.reddit.com/r/redalert2/comments/1eifo7p/red_alert_2_quotes_test/
 (def ok-messages ["Got it!" "At your service!" "Rubber shoes in motion."
-                  "Sir! Yes, SIR!" "Double time." "Stack ready."])
+                  "Sir! Yes, SIR!" "Double time." "Stack ready." "Moving out."
+                  "Airship ready!" "I've got the knowlege." "Release the swarm!"
+                  "It's gonna be a silent spring." "Scorched earth."])
 
 (defn stack-push [{:as req :keys [params]}]
   (when (teodor? req)
