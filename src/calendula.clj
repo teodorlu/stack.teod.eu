@@ -1,8 +1,8 @@
 (ns calendula
   (:require [clojure.string :as str]
-            [nextjournal.impulse :as impulse]
-            [nextjournal.garden-id :as garden-id :refer [username displayname email]]
+            [impulse]
             [nextjournal.garden-email :as garden-email]
+            [nextjournal.garden-id :as garden-id :refer [username displayname email]]
             [ring.util.codec :as codec])
   (:import (java.time LocalDate DayOfWeek)
            (java.time.temporal TemporalAdjusters)))

@@ -1,4 +1,9 @@
 {:paths ["src" "resources"]
- :deps {ring/ring-core {:mvn/version "1.14.2"}
-        io.github.nextjournal/impulse {:git/sha "83659db7d8037a86c9f3d9ec57f1080cf1b676fb"}}
+ :deps {duratom/duratom {:mvn/version "0.5.9"}
+        hiccup/hiccup {:mvn/version "2.0.0-RC3"}
+        http-kit/http-kit {:mvn/version "2.8.0"}
+        io.github.nextjournal/garden-email {:git/sha "e312764cfaa31e8e47f5f2c0207dcbed67873187"}
+        io.github.nextjournal/garden-id {:git/sha "7d19e5400b9ac9082e444f2c0e96d9b5e616a483"}
+        metosin/reitit {:mvn/version "0.7.2"}
+        ring/ring-core {:mvn/version "1.14.2"}}
  :aliases {:nextjournal/garden {:exec-fn calendula/start!}}}
