@@ -47,7 +47,7 @@
     (when-let [text (get params "writer")]
       (impulse/swap-in! impulse/state
                         [:stack]
-                        (fnil conj [])
+                        (fnil conj ())
                         {:text text
                          :timestamp (str (java.time.Instant/now))
                          :uuid (random-uuid)})))
