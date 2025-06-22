@@ -40,12 +40,6 @@
    {:text "Har vært på Kodekamp :) ",
     :uuid #uuid "72fdbf7b-9761-45b3-90a4-9d85c7d8e139",
     :timestamp "2024-09-26T16:27:04.962152033Z"}
-   {:text "Møter Amedia-folk.",
-    :uuid #uuid "16ba7660-dd95-49aa-951e-809a94fb6520",
-    :timestamp "2024-09-27T15:33:41.002526043Z"}
-   {:text "Er på Amedia After Work",
-    :uuid #uuid "e5f78aed-3d0b-48b6-b62e-cbeec66fdf91",
-    :timestamp "2024-09-27T16:23:00.400363278Z"}
    {:text
     "Had a nice walk + chat with Ben. Sun is nice. Sincere conversation is nice. 🙏☀️",
     :uuid #uuid "b36ad97f-04a7-4c53-b464-1dff67cf7c4e",
@@ -62,9 +56,6 @@
     "Har funnet problemer med Hiccup. Løser Replicant biffen?\n\nSer sånn ut, i alle fall foreløpig???",
     :uuid #uuid "b3a11b8a-84c7-4366-a8bd-1638f55c6982",
     :timestamp "2024-10-09T07:48:32.207439313Z"}
-   {:text "Kan vi skrive her, mon tro?\n\nSer sånn ut.",
-    :uuid #uuid "f50252ae-6361-47be-ac83-f7df61f66697",
-    :timestamp "2024-10-09T07:50:24.457078228Z"}
    {:text
     "Enhetstesting for byggebransjen\n\nJeg tror det som trengs er masse innsats for å lage et \"corpus\" av automatiserte tester gitt et konsept.\n\nSå trenger man beskrivelser av det konseptet!",
     :uuid #uuid "35f5f0bd-3e82-48d7-853d-f0c0b3112143",
@@ -81,12 +72,6 @@
     "1. Datomic i mikrobloggeriet var en braksuksess!\n2. Jeg vil lage file watcher som kun kjører når GARDEN_GIT_REVISION ikke er tilstede\n3. Jeg vil lage en matte-poc med codemirror som kjører i en nettleser med ekstremt kjapp deploy, helst nobuild.",
     :uuid #uuid "2e9c380a-c169-494e-a40a-e9c1927265c1",
     :timestamp "2024-12-22T11:59:43.916931479Z"}
-   {:text "what",
-    :uuid #uuid "d8da7873-70ac-49f0-a2f3-36fd6e5bc84e",
-    :timestamp "2025-03-07T20:17:42.045017375Z"}
-   {:text "what is this\n",
-    :uuid #uuid "8851101c-9ee7-4d93-b27a-cd41790ba60b",
-    :timestamp "2025-03-07T20:17:53.870272872Z"}
    {:text
     "Three modes when creating:\n\n- expand\n- select \n- reduce wip / cleanup\n",
     :uuid #uuid "f64ed53e-b57e-4b89-96bf-6d2f3fda6232",
