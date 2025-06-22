@@ -1,4 +1,4 @@
-(ns calendula
+(ns stack
   (:require [clojure.string :as str]
             [impulse]
             [nextjournal.garden-id :as garden-id :refer [username displayname email]]

@@ -6,4 +6,4 @@
         io.github.nextjournal/garden-id {:git/sha "7d19e5400b9ac9082e444f2c0e96d9b5e616a483"}
         metosin/reitit {:mvn/version "0.7.2"}
         ring/ring-core {:mvn/version "1.14.2"}}
- :aliases {:nextjournal/garden {:exec-fn calendula/start!}}}
+ :aliases {:nextjournal/garden {:exec-fn stack/start!}}}
