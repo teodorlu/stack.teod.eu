@@ -12,14 +12,23 @@
      [:p {:style {:padding-left "1rem"}}
       (some->> body str/trim str/split-lines (interpose [:br]))]]))
 
-(defn render-writer [{:keys [message]}]
-  [:form {:hx-post "/push" :hx-swap "outerHTML"}
+(defn render-writer [message]
+  [:form {:hx-post "/push" :hx-swap "outerHTML"
+          :hx-target "#writer-and-notes"}
    message
    [:textarea {:name "writer" :rows 10}]
    [:button {:type "submit"} "Save"]])
 
 (defn teodor? [req]
   (= (username req) "teodorlu"))
+
+(defn render-writer-and-notes
+  ([req] (render-writer-and-notes req nil))
+  ([req message]
+   [:div#writer-and-notes
+    (when (teodor? req)
+      (render-writer message))
+    (map render-note (concat (:stack @impulse/state) weeknotes/archive))]))
 
 (defn index [req]
   (let [uname (username req)]
@@ -32,9 +41,7 @@
        [:li (if uname
               [:span (str uname " ") [:a {:href garden-id/logout-uri} "(logout)"]]
               [:a {:href garden-id/login-uri} "login"])]]]
-     (when (teodor? req)
-       (render-writer {}))
-     (map render-note (concat (:stack @impulse/state) weeknotes/archive)))))
+     (render-writer-and-notes req))))
 
 ;; https://www.reddit.com/r/redalert2/comments/1eifo7p/red_alert_2_quotes_test/
 (def ok-messages ["High Speed, Low Drag."
@@ -53,7 +60,7 @@
                         {:text text
                          :timestamp (str (java.time.Instant/now))
                          :uuid (random-uuid)})))
-  (render-writer {:message (rand-nth ok-messages)}))
+  (render-writer-and-notes req (rand-nth ok-messages)))
 
 (def routes
   [["/" #'index]
