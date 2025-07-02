@@ -18,9 +18,6 @@
    [:textarea {:name "writer" :rows 10}]
    [:button {:type "submit"} "Save"]])
 
-(defn concatv [& args]
-  (into [] cat args))
-
 (defn teodor? [req]
   (= (username req) "teodorlu"))
 
@@ -37,7 +34,7 @@
               [:a {:href garden-id/login-uri} "login"])]]]
      (when (teodor? req)
        (render-writer {}))
-     (map render-note (concatv (:stack @impulse/state) weeknotes/archive)))))
+     (map render-note (concat (:stack @impulse/state) weeknotes/archive)))))
 
 ;; https://www.reddit.com/r/redalert2/comments/1eifo7p/red_alert_2_quotes_test/
 (def ok-messages ["High Speed, Low Drag."
