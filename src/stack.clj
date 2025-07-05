@@ -28,7 +28,7 @@
    [:div#writer-and-notes
     (when (teodor? req)
       (render-writer message))
-    (map render-note (concat (:stack @impulse/state) weeknotes/archive))]))
+    (map render-note (:stack @impulse/state))]))
 
 (defn index [req]
   (let [uname (username req)]
