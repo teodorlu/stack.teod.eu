@@ -4,6 +4,21 @@
             [nextjournal.garden-id :as garden-id :refer [username displayname email]]
             [weeknotes]))
 
+(def notes-materialized
+  (atom nil))
+
+(defn materialize-notes [state]
+  (->> state :stack vals
+       (sort-by :timestamp)
+       reverse))
+
+(reset! notes-materialized (materialize-notes @impulse/state))
+
+(add-watch impulse/state
+           ::notes-stack-mv
+           (fn [_ _ _ newstate]
+             (reset! notes-materialized (materialize-notes newstate))))
+
 (defn render-note [{:keys [text uuid timestamp]}]
   (let [[header body] (-> text
                           (str/split #"\n" 2))]
@@ -37,11 +52,7 @@
    [:div#writer-and-notes
     (when (teodor? req)
       (render-writer message))
-    (->> (:stack @impulse/state)
-         vals
-         (sort-by :timestamp)
-         reverse
-         (map render-note))]))
+    (map render-note @notes-materialized)]))
 
 (defn index [req]
   (let [uname (username req)]
