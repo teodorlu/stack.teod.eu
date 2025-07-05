@@ -1,5 +1,6 @@
 {:paths ["src" "resources"]
- :deps {duratom/duratom {:mvn/version "0.5.9"}
+ :deps {babashka/process {:mvn/version "0.6.23"}
+        duratom/duratom {:mvn/version "0.5.9"}
         hiccup/hiccup {:mvn/version "2.0.0-RC3"}
         http-kit/http-kit {:mvn/version "2.8.0"}
         io.github.nextjournal/garden-email {:git/sha "e312764cfaa31e8e47f5f2c0207dcbed67873187"}
