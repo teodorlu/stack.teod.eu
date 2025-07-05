@@ -22,13 +22,26 @@
 (defn teodor? [req]
   (= (username req) "teodorlu"))
 
+(defn validate-state [{:as state :keys [stack]}]
+  (when-not (map? state)
+    (throw (ex-info "Invalid state, must be map"
+                    {:state state})))
+  (when-not (or (nil? stack) (map? stack))
+    (throw (ex-info "Invalid state, satck must be map or nil"
+                    {:stack stack}))))
+
 (defn render-writer-and-notes
   ([req] (render-writer-and-notes req nil))
   ([req message]
+   (validate-state @impulse/state)
    [:div#writer-and-notes
     (when (teodor? req)
       (render-writer message))
-    (map render-note (:stack @impulse/state))]))
+    (->> (:stack @impulse/state)
+         vals
+         (sort-by :timestamp)
+         reverse
+         (map render-note))]))
 
 (defn index [req]
   (let [uname (username req)]
@@ -54,12 +67,16 @@
 (defn stack-push [{:as req :keys [params]}]
   (when (teodor? req)
     (when-let [text (get params "writer")]
-      (impulse/swap-in! impulse/state
-                        [:stack]
-                        (fnil conj ())
-                        {:text text
-                         :timestamp (str (java.time.Instant/now))
-                         :uuid (random-uuid)})))
+      (let [id (random-uuid)]
+        (impulse/swap-in! impulse/state
+                          [:stack (str id)]
+                          (fn [oldval]
+                            (when oldval
+                              (throw (ex-info "Failed to create stack entry - id exists!"
+                                              {:id id})))
+                            {:text text
+                             :timestamp (str (java.time.Instant/now))
+                             :uuid id})))))
   (render-writer-and-notes req (rand-nth ok-messages)))
 
 (def routes

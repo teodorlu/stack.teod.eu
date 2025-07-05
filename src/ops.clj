@@ -24,4 +24,13 @@
   (def archive (fs/file "archive" (str (LocalDate/now) "-" (System/currentTimeMillis))))
   (backup! "New backup after joining weeknotes into impulse/state" archive)
 
+  (defn mapify [stack-seq]
+    (->> stack-seq
+         (map #(vector (str (:uuid %))
+                       %))
+         (into {})))
+
+  (require 'impulse)
+  (impulse/swap-in! impulse/state [:stack] mapify)
+
   )
